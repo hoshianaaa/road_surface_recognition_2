@@ -1,0 +1,5 @@
+<launch>
+  <node name="making_environmental_pointcloud" pkg="road_surface_recognition_2" type="making_environmental_pointcloud" />
+  <node name="publish_cloud_from_pcd" pkg="road_surface_recognition_2" type="publish_cloud_from_pcd" />
+</launch>
+
