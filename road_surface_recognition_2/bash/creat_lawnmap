@@ -1,12 +1,13 @@
 #!/bin/bash
 
-gnome-terminal -e roscore
-gnome-terminal -e rosrun road_surface_recognition_2 making_environmental_pointcloud
-gnome-terminal -e rosrun road_surface_recognition_2 publish_cloud_from_pcd
-gnome-terminal -e  rosrun road_surface_recognition_2 tf_broadcaster_map_3dmap
-gnome-terminal -e  rosrun road_surface_recognition_2 filtered_cloud_pub
-
+gnome-terminal -- bash -c "roscore; bash"
+sleep 3
+gnome-terminal -- bash -c "rosrun map_server map_server /home/hoshina/catkin_ws/src/road_surface_recognition_2/data/shiba.yaml; bash"
+gnome-terminal -- bash -c "rosrun road_surface_recognition_2 making_environmental_pointcloud; bash"
+gnome-terminal -- bash -c "rosrun road_surface_recognition_2 publish_cloud_from_pcd; bash"
+gnome-terminal -- bash -c "rosrun road_surface_recognition_2 tf_broadcaster_map_3dmap"
+gnome-terminal -- bash -c "rosrun road_surface_recognition_2 filtered_cloud_pub"
 sleep 5
-
-gnome-terminal -e  rosservice call /up_map
+gnome-terminal -- bash -c "rosservice call /up_map"
+gnome-terminal -- bash -c "rviz"
 
