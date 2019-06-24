@@ -27,6 +27,7 @@
 
 #include <iostream>
 #include <string>
+#include <math.h>
 
 
 map_t *map_alloc(void)
@@ -131,7 +132,8 @@ ReflectionIntensityMappingNode::ReflectionIntensityMappingNode()
     ros::NodeHandle nh;
 
     std::string point_cloud_topic_name;
-    private_nh_.param("point_cloud_topic_name", point_cloud_topic_name_, std::string("/cloud_raw"));
+    //private_nh_.param("point_cloud_topic_name", point_cloud_topic_name_, std::string("/cloud_raw"));
+    private_nh_.param("point_cloud_topic_name", point_cloud_topic_name_, std::string("/cloud_filtered"));
     private_nh_.param("global_frame_id", global_frame_id_, std::string("map"));
     map_cloud_pub     = nh.advertise<sensor_msgs::PointCloud>("map_cloud", 2, true);
     point_cloud_sub   = nh.subscribe(point_cloud_topic_name_, 10, &ReflectionIntensityMappingNode::pointcloudCallback, this);
@@ -156,7 +158,12 @@ void ReflectionIntensityMappingNode::pointcloudCallback(const sensor_msgs::Point
     /* Run an endpoint update until you run 'rosservice call /up_map'. */
     for(int i=0; i<pcl_point_cloud->points.size(); i++){
         //ROS_INFO("map_update_cell");
-        map_update_cell(map_, pcl_point_cloud->points[i].x, pcl_point_cloud->points[i].y, pcl_point_cloud->points[i].intensity);
+        //map_update_cell(map_, pcl_point_cloud->points[i].x, pcl_point_cloud->points[i].y , pcl_point_cloud->points[i].intensity);
+	//回転行列
+	double theta = -0.1;
+	double offset_x = 0;
+	double offset_y = -0.7;
+        map_update_cell(map_, (pcl_point_cloud->points[i].x * cos(theta) + pcl_point_cloud->points[i].y * sin(theta)) + offset_x  , (pcl_point_cloud->points[i].y * cos(theta) - pcl_point_cloud->points[i].x * sin(theta)) + offset_y , pcl_point_cloud->points[i].intensity);
     	//ROS_INFO("map_->cells[i]:%f  map_->size_x:%d", map_->cells[i], map_->size_x);
 	
     }

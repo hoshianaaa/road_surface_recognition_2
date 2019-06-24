@@ -28,7 +28,7 @@ public:
     void convertPCLtoROS()
     {
         pcl::toROSMsg(cloud_pcl_, cloud_ros_);
-        cloud_ros_.header.frame_id = "base_link";
+        cloud_ros_.header.frame_id = "3dmap";
     }
 
     void publish()

@@ -10,8 +10,8 @@ class CloudLoadingHandler
 public:
     CloudLoadingHandler(ros::NodeHandle &nh) :
         //loader_(CloudLoader(nh, "cloud_raw", "table_scene_lms400.pcd"))
-
-        loader_(CloudLoader(nh, "cloud_raw", "test_pcd.pcd"))
+        //loader_(CloudLoader(nh, "cloud_raw", "test_pcd.pcd"))
+        loader_(CloudLoader(nh, "cloud_raw", "autoware-190620.pcd"))
     {}
 
     void operate()

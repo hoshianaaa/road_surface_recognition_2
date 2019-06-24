@@ -218,3 +218,7 @@ add_executable(making_environmental_pointcloud src/making_environmental_pointclo
 target_link_libraries(making_environmental_pointcloud ${catkin_LIBRARIES})
 add_executable(publish_cloud_from_pcd src/publish_cloud_from_pcd.cpp)
 target_link_libraries(publish_cloud_from_pcd ${catkin_LIBRARIES})
+add_executable(filtered_cloud_pub src/filtered_cloud_pub.cpp)
+target_link_libraries(filtered_cloud_pub ${catkin_LIBRARIES})
+add_executable(tf_broadcaster_map_3dmap src/tf_broadcaster_map_3dmap.cpp)
+target_link_libraries(tf_broadcaster_map_3dmap  ${catkin_LIBRARIES})
